@@ -1,0 +1,67 @@
+﻿@model WebApplication1.Models.Img
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Img</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.img_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.img_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
