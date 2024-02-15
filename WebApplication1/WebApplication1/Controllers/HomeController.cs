@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
@@ -26,7 +28,7 @@ namespace WebApplication1.Controllers
             switch (sortImg)
             {
                 case "img_desc":
-                    img = img.OrderByDescending(p => p.img_date);
+                    img = img.OrderBy(p => p.img_name);
                     break;
                 default:
                     img = img.OrderBy(p => p.img_id);
@@ -35,20 +37,61 @@ namespace WebApplication1.Controllers
             return View(img);
         }
 
-        public ActionResult About()
+        public ActionResult MyGallery()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View(db.Imgs.ToList().Where(x => x.UserName == User.Identity.Name));
         }
 
-        public ActionResult Contact()
+        public ActionResult Edit(int? id)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Img img = db.Imgs.Find(id);
+            if (img == null)
+            {
+                return HttpNotFound();
+            }
+            return View(img);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "img_id,img_name,img_description,img_category,UserName,img_url,img_date")] Img img)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(img).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(img);
+        }
+
         public ActionResult Details(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Img img = db.Imgs.Find(id);
+            if (img == null)
+            {
+                return HttpNotFound();
+            }
+            List<Comment> comments = db.Comments.Where(r => r.img_id == id).ToList();
+
+            var viewModel = new CommentViewModel
+            {
+                img = img,
+                comments = comments
+            };   
+            return View(viewModel);
+        }
+        public ActionResult MyDetails(int id)
         {
             var dataId = db.Imgs.Single(x => x.img_id == id);
             return View(dataId);
@@ -84,6 +127,55 @@ namespace WebApplication1.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Img img = db.Imgs.Find(id);
+            if (img == null)
+            {
+                return HttpNotFound();
+            }
+            return View(img);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Img img = db.Imgs.Find(id);
+            db.Imgs.Remove(img);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Comment(int img_id, string comment)
+        {
+            var CM = new Comment
+            {
+                img_id = img_id,
+                UserName = User.Identity.Name,
+                comment1 = comment,
+                comment_date = DateTime.Now
+            };
+            db.Comments.Add(CM);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = img_id });
+        }
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+        public JsonResult GetReportJson()
+        {
+            var data = db.Imgs.ToList();
+            return Json(new { JSONList = data }, JsonRequestBehavior.AllowGet);
         }
     }
 }

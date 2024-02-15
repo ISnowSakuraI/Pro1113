@@ -1,67 +1,81 @@
-﻿@model WebApplication1.Models.Img
+﻿@model WebApplication1.Models.CommentViewModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>ข้อมูลรูป</h2>
 
+<p>
+    @Html.ActionLink("ย้อนกลับ", "Index")
+</p>
 <div>
-    <h4>Img</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.img_name)
+            ชื่อรูป
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img_name)
+            @Model.img.img_name
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.img_description)
+            คำอธิบาย
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img_description)
+            @Model.img.img_description
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.img_category)
+            หมวดหมู่
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img_category)
+            @Model.img.img_category
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserName)
+            เจ้าของ
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserName)
+            @Model.img.UserName
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.img_url)
+            รูป
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img_url)
+            <img src=@Url.Content("~/img/" + (@Model.img.img_url)) style="width: auto;height: auto" />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.img_date)
+            วันที่อัพโหลด
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img_date)
+            @Model.img.img_date
         </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.img_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@using (Html.BeginForm("Comment", "Home", FormMethod.Post))
+{
+    @Html.Hidden("img_id", Model.img.img_id);
+<div style="display:flex">
+    <h5 style="font-weight:bold; margin:10px;">Comment </h5>
+    <input type="text" name="comment">
+    <button type="submit">ส่ง</button>
+</div>
+}
+@foreach (var CM in Model.comments)
+            {
+                <div>
+                    <h5 style="font-weight:bold">@CM.UserName</h5>
+                    <h6>@CM.comment1</h6>
+                </div>
+            }

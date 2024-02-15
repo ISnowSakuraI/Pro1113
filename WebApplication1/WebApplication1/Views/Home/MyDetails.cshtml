@@ -1,0 +1,65 @@
+﻿@model WebApplication1.Models.Img
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ข้อมูลรูป</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.img_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_url)
+        </dt>
+
+        <dd>
+            <img src=@Url.Content("~/img/" + (Model.img_url)) style="width: 100px;height: auto" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("ย้อนกลับ", "MyGallery")
+</p>

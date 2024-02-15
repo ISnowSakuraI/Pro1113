@@ -2,15 +2,17 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<h2> Gallery </h2>
+<h1 style="text-align: center;">Gallery</h1>
 <div class="container">
-    <div class="row text-right">
-        @Html.ActionLink("เรียง", "Index", new { sortImg = ViewBag.ImgSortParm }, new { @class = "btn btn-default" })
-        @using ((Html.BeginForm()))
-        {
-            @Html.TextBox("SearchString", null, new { @placeholder = "ค้นหา" })
-            <input type="submit" class="btn btn-info" value="Search" />
-        }
+    <div class="row text-right mb-2">
+        @Html.ActionLink("เรียง", "Index", new { sortImg = ViewBag.ImgSortParm }, new { @class = "btn btn-info" })
+        <form class="form-inline mb-2">
+                @using ((Html.BeginForm()))
+                {
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "ระบุสิ่งที่ต้องการค้นหา" })
+                    <input type="submit" class="btn btn-info" value="ค้นหา" />
+                }
+        </form>
     </div>
 </div>
 @for (var i = 1; i <= Model.ToList().Count(); i++)
@@ -26,7 +28,7 @@
 
                 <a href="#" onclick="navigateToDetails(@Model.ElementAt(indexItem).img_id)">
 
-                    <img class="img-responsive" style="width: 70%;" src="@Url.Content("~/img/" + (Model.ElementAt(indexItem).img_url))" />
+                    <img class="img-responsive" style="width: 100%;" src="@Url.Content("~/img/" + (Model.ElementAt(indexItem).img_url))" />
 
                 </a>
                 <div class="caption">
