@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="three.View.ProductDetail"
+             xmlns:local="clr-namespace:three.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <local:ProductsListViewModels/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Wheat">
+
+            <Image Source="{Binding selectProduct.img_url}" HeightRequest="200" WidthRequest="200"/>
+
+            <Label Text="{Binding selectProduct.img_name}"
+            FontSize="Large" FontAttributes="Bold"
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding selectProduct.img_description}"
+               FontSize="Large" 
+                HorizontalOptions="CenterAndExpand" />
+            
+
+           
+
+            <Button Text="Close" Command="{Binding ClosCommand}"></Button>
+            <Button Text="ลบ" Command="{Binding DeleteCommand}"></Button>
+            
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

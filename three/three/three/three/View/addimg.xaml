@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:three.ViewModels"
+             x:Class="three.View.addimg">
+
+    <ContentPage.BindingContext>
+        <local:addviewmodels/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <Editor Text="{Binding ImgName}"></Editor>
+            <Editor Text="{Binding Description}"></Editor>
+            <Editor Text="{Binding Category}"></Editor>
+            <Editor Text="{Binding User}"></Editor>
+            <Editor Text="{Binding Img}"></Editor>
+
+            <Button Text="Add" Command="{Binding AddCommand}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

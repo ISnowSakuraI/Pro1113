@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:three.ViewModels"
+             x:Class="three.View.PageLogin">
+
+    <ContentPage.BindingContext>
+        <local:PageLoginViewModels/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+
+
+
+            <Image Source="logo.png" HeightRequest="300" WidthRequest="200"></Image>
+            <Editor Grid.Row="0" Grid.Column="1" Placeholder="Enter you Email" Text="{Binding loginModels.Email}"></Editor>
+            <Editor Grid.Row="1" Grid.Column="1" Placeholder="Enter you Password"  Text="{Binding loginModels.Password}"></Editor>
+            <Button Grid.Row="2" Grid.Column="1" BackgroundColor="Violet" Text="Login" FontSize="Large" Command="{Binding LoginCommand}" CornerRadius="10"></Button>
+            <Button Grid.Row="3" Grid.Column="1" BackgroundColor="PaleVioletRed" Text="Register" FontSize="Large" Command="{Binding RegisterCommand}" CornerRadius="10"></Button>
+            <Label Grid.Row="4" Grid.Column="1"  FontSize="Large" HorizontalOptions="Center" Text="{Binding Result}"></Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
